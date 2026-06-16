@@ -2,8 +2,16 @@ import React from "react";
 import { motion } from "framer-motion";
 
 export const Hero: React.FC = () => {
+  const handleScrollToProjects = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const projectsSection = document.getElementById("projects");
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
-    <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden px-4 text-center">
+    <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden px-4 text-center bg-transparent transition-colors duration-500">
       {/* Subtilt bakgrundsljus för premiumkänsla */}
       <div className="absolute -z-10 h-full w-full">
         <div className="absolute left-1/2 top-1/4 h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-[100px] dark:bg-blue-900/20"></div>
@@ -42,6 +50,7 @@ export const Hero: React.FC = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
             href="#projects"
+            onClick={handleScrollToProjects}
             className="w-full rounded-xl bg-slate-900 px-8 py-4 text-sm font-bold text-white shadow-xl transition-all hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-slate-100 sm:w-auto"
           >
             See my projects

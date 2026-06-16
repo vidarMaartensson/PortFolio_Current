@@ -30,9 +30,9 @@ const projects: Project[] = [
 
 export const ProjectGrid: React.FC = () => {
   return (
-    <section
+    <section /* Removed background classes to allow stars to show through */
       id="projects"
-      className="py-20 bg-gradient-to-b from-white via-amber-50 via-20% to-amber-50 dark:from-black dark:via-gray-900 dark:via-20% dark:to-gray-900"
+      className="py-20"
     >
       <div className="container mx-auto px-4">
         <div className="mb-12">
