@@ -29,6 +29,16 @@ export const Navbar: React.FC = () => {
     }
   }, [isDark]);
 
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const targetId = href.replace("#", "");
+      const element = targetId ? document.getElementById(targetId) : document.body;
+      element?.scrollIntoView({ behavior: "smooth" });
+      window.history.pushState(null, "", href || "#");
+    }
+  };
+
   // Define navLinks outside of the component or memoize it if it depends on props/state
   // For now, it's fine here as it's static.
   const navLinks = [
@@ -58,6 +68,7 @@ export const Navbar: React.FC = () => {
             <a
               key={link.name}
               href={link.href}
+              onClick={(e) => handleScroll(e, link.href)}
               className="px-4 py-2 text-sm font-semibold text-slate-600 transition-all hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 no-underline"
             >
               {link.name}
