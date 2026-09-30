@@ -4,6 +4,7 @@ export interface Project {
   description: string;
   tags: string[];
   imageUrl?: string;
+  gifUrl?: string;
   githubUrl?: string;
   liveUrl?: string;
   status: "completed" | "in-progress";
