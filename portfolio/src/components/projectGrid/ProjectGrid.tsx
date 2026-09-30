@@ -3,6 +3,7 @@ import { ProjectCard } from "../projectCard/ProjectCard";
 import type { Project } from "../../types";
 import pulseGridImage from "../../assets/projects/pulsegrid.png";
 import pulseGridGif from "../../assets/projects/pulsegrid.gif";
+import codeReviewerImage from "../../assets/projects/code-reviewer-buddy.png";
 
 const projects: Project[] = [
   {
@@ -26,10 +27,12 @@ const projects: Project[] = [
   },
   {
     id: 3,
-    title: "Open Source Contributor Tool",
+    title: "Agent Code Reviewer Buddy",
     description:
-      "Helps junior developer find their first github problem challange",
-    tags: ["Node.js", "Express", "React"],
+      "AI code reviewer that clones any GitHub repo and streams a live multi-agent review via Llama 3.3.",
+    tags: [".NET", "React", "TypeScript", "Llama / Groq"],
+    imageUrl: codeReviewerImage,
+    liveUrl: "https://agent-code-reveiwer-buddy.vercel.app/",
     status: "completed",
   },
 ];
