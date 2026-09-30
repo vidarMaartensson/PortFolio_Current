@@ -1,6 +1,8 @@
 import React from "react";
 import { ProjectCard } from "../projectCard/ProjectCard";
 import type { Project } from "../../types";
+import pulseGridImage from "../../assets/projects/pulsegrid.png";
+import pulseGridGif from "../../assets/projects/pulsegrid.gif";
 
 const projects: Project[] = [
   {
@@ -13,10 +15,14 @@ const projects: Project[] = [
   },
   {
     id: 2,
-    title: "Personal Dashboard",
-    description: "A internal tool to visualize my data from gihub and jara",
-    tags: ["React", "Go", "Redis"],
-    status: "in-progress",
+    title: "PulseGrid",
+    description:
+      "Real-time monitoring dashboard with live service metrics, an event stream and simulated incidents.",
+    tags: ["React", "TypeScript", "Recharts", "Vite"],
+    imageUrl: pulseGridImage,
+    gifUrl: pulseGridGif,
+    liveUrl: "https://pulse-grid-delta.vercel.app/",
+    status: "completed",
   },
   {
     id: 3,
