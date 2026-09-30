@@ -1,7 +1,7 @@
 import { Navbar } from "./components/navbar/Navbar";
 import { Hero } from "./components/hero/Hero";
 import { ProjectGrid } from "./components/projectGrid/ProjectGrid";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 
 // Helper function to generate star layers
 const generateStars = (
