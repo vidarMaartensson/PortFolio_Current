@@ -11,7 +11,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden px-4 pt-28 sm:pt-32 text-center bg-transparent transition-colors duration-500">
+    <section className="relative flex flex-col items-center overflow-hidden px-4 pt-18 pb-12 text-center sm:pt-22 sm:pb-16 lg:pt-23 bg-transparent transition-colors duration-500">
       {/* Subtilt bakgrundsljus för premiumkänsla */}
       <div className="absolute -z-10 h-full w-full">
         <div className="absolute left-1/2 top-1/4 h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-[100px] dark:bg-blue-900/20"></div>
