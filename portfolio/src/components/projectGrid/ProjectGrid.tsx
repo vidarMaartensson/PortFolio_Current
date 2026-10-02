@@ -4,16 +4,10 @@ import type { Project } from "../../types";
 import pulseGridImage from "../../assets/projects/pulsegrid.png";
 import pulseGridGif from "../../assets/projects/pulsegrid.gif";
 import codeReviewerImage from "../../assets/projects/code-reviewer-buddy.png";
+import pullPatrolImage from "../../assets/projects/pullpatrol.png";
+import pullPatrolGif from "../../assets/projects/pullpatrol.gif";
 
 const projects: Project[] = [
-  {
-    id: 1,
-    title: "A E-store",
-    description:
-      "Fully scalable stripe application with live inventory changes and orders.",
-    tags: ["Next.js", "TypeScript", "Tailwind", "PostgreSQL"],
-    status: "in-progress",
-  },
   {
     id: 2,
     title: "PulseGrid",
@@ -23,6 +17,7 @@ const projects: Project[] = [
     imageUrl: pulseGridImage,
     gifUrl: pulseGridGif,
     liveUrl: "https://pulse-grid-delta.vercel.app/",
+    githubUrl: "https://github.com/vidarMaartensson/PulseGrid",
     status: "completed",
   },
   {
@@ -33,6 +28,19 @@ const projects: Project[] = [
     tags: [".NET", "React", "TypeScript", "Llama / Groq"],
     imageUrl: codeReviewerImage,
     liveUrl: "https://agent-code-reveiwer-buddy.vercel.app/",
+    githubUrl: "https://github.com/vidarMaartensson/Agent_Code_Reveiwer_Buddy",
+    status: "completed",
+  },
+  {
+    id: 4,
+    title: "PullPatrol",
+    description:
+      "Automated pull request reviewer that combines static rules with GPT-OSS 120B via Groq and posts inline findings on GitHub.",
+    tags: [".NET 10", "C#", "GitHub API", "Groq"],
+    imageUrl: pullPatrolImage,
+    gifUrl: pullPatrolGif,
+    githubUrl: "https://github.com/vidarMaartensson/PullPatrol",
+    demoInModal: true,
     status: "completed",
   },
 ];
