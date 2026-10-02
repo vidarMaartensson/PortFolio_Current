@@ -41,10 +41,23 @@ export const Navbar: React.FC = () => {
 
   // Define navLinks outside of the component or memoize it if it depends on props/state
   // For now, it's fine here as it's static.
+  // On phones the links are shown as icons only so the bar fits the screen.
   const navLinks = [
-    { name: "Hem", href: "#" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "mailto:vidar.maartensson@gmail.com" },
+    {
+      name: "Home",
+      href: "#",
+      icon: "M3 10.5 12 3l9 7.5M5 9v11a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9",
+    },
+    {
+      name: "Projects",
+      href: "#projects",
+      icon: "M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z",
+    },
+    {
+      name: "Contact",
+      href: "mailto:vidar.maartensson@gmail.com",
+      icon: "M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7zm0 0 9 6 9-6",
+    },
   ];
 
   const contactEmail = navLinks.find((link) => link.name === "Contact")?.href;
@@ -60,27 +73,41 @@ export const Navbar: React.FC = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center p-6"
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center p-4 sm:p-6"
     >
-      <div className="relative flex items-center">
-        <nav className="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200/50 bg-white/80 backdrop-blur-md shadow-lg dark:border-slate-800/50 dark:bg-slate-900/80">
+      <div className="relative flex items-center gap-3 sm:gap-0">
+        <nav className="flex items-center gap-1 px-2 py-1.5 sm:gap-2 sm:px-4 sm:py-2 rounded-full border border-slate-200/50 bg-white/80 backdrop-blur-md shadow-lg dark:border-slate-800/50 dark:bg-slate-900/80">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
               onClick={(e) => handleScroll(e, link.href)}
-              className="px-4 py-2 text-sm font-semibold text-slate-600 transition-all hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 no-underline"
+              aria-label={link.name}
+              title={link.name}
+              className="flex items-center p-2.5 sm:px-4 sm:py-2 text-sm font-semibold text-slate-600 transition-all hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 no-underline"
             >
-              {link.name}
+              <svg
+                className="h-5 w-5 sm:hidden"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d={link.icon} />
+              </svg>
+              <span className="hidden sm:inline">{link.name}</span>
             </a>
           ))}
 
-          <div className="mx-2 h-4 w-[1px] bg-slate-200 dark:bg-slate-700" />
+          <div className="mx-0.5 sm:mx-2 h-4 w-[1px] bg-slate-200 dark:bg-slate-700" />
 
           <button
             onClick={() => setIsDark(!isDark)}
             className="flex h-10 w-10 items-center justify-center rounded-full text-slate-600 transition-all hover:bg-slate-100 hover:text-blue-600 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-blue-400 border-none bg-transparent cursor-pointer"
-            aria-label="Byt färgtema"
+            aria-label="Toggle color theme"
           >
             {isDark ? (
               <svg
@@ -114,13 +141,14 @@ export const Navbar: React.FC = () => {
           </button>
 
           {/* En liten visuell avskiljare innan kontakt-knappen (valfritt) */}
-          <div className="mx-2 h-4 w-[1px] bg-slate-200 dark:bg-slate-700" />
+          <div className="mx-0.5 sm:mx-2 h-4 w-[1px] bg-slate-200 dark:bg-slate-700" />
 
           <a
-            href="https://github.com"
+            href="https://github.com/vidarMaartensson"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-2 px-4 py-2 text-sm font-bold text-slate-900 dark:text-white hover:opacity-70 transition-opacity no-underline"
+            aria-label="GitHub"
+            className="group flex items-center gap-2 p-2.5 sm:px-4 sm:py-2 text-sm font-bold text-slate-900 dark:text-white hover:opacity-70 transition-opacity no-underline"
           >
             <svg
               className="h-5 w-5 transition-transform duration-300 group-hover:rotate-12"
@@ -134,7 +162,7 @@ export const Navbar: React.FC = () => {
                 clipRule="evenodd"
               />
             </svg>
-            GitHub
+            <span className="hidden sm:inline">GitHub</span>
           </a>
         </nav>
 
@@ -142,10 +170,10 @@ export const Navbar: React.FC = () => {
           src={avatar}
           alt="Profile Avatar"
           onClick={handleAvatarClick}
-          className={`absolute left-full ml-4 top-1/2 -translate-y-1/2 rounded-full border-2 border-slate-200 object-cover shadow-xl dark:border-slate-800 transition-all duration-300 hover:scale-110 hover:rotate-3 cursor-pointer ${
+          className={`shrink-0 sm:absolute sm:left-full sm:ml-4 sm:top-1/2 sm:-translate-y-1/2 rounded-full border-2 border-slate-200 object-cover shadow-xl dark:border-slate-800 transition-all duration-300 hover:scale-110 hover:rotate-3 cursor-pointer ${
             isScrolled
-              ? "h-12 w-12"
-              : "h-12 w-12 sm:h-16 sm:w-16 lg:h-24 lg:w-24"
+              ? "h-10 w-10 sm:h-12 sm:w-12"
+              : "h-10 w-10 sm:h-16 sm:w-16 lg:h-24 lg:w-24"
           }`}
         />
       </div>
