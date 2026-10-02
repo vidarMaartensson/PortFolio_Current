@@ -11,7 +11,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden px-4 text-center bg-transparent transition-colors duration-500">
+    <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden px-4 pt-28 sm:pt-32 text-center bg-transparent transition-colors duration-500">
       {/* Subtilt bakgrundsljus för premiumkänsla */}
       <div className="absolute -z-10 h-full w-full">
         <div className="absolute left-1/2 top-1/4 h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-[100px] dark:bg-blue-900/20"></div>
@@ -27,12 +27,12 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="mb-4 inline-block rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-slate-500 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400"
+          className="mb-4 inline-block rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-500 sm:px-4 sm:text-xs sm:tracking-widest dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400"
         >
-          Fullstack-utvecklare • 3 years of experience
+          Full-stack developer • 3 years of experience
         </motion.span>
 
-        <h1 className="mb-6 text-5xl font-black tracking-tight text-slate-900 dark:text-white sm:text-7xl lg:text-8xl">
+        <h1 className="mb-6 text-4xl font-black tracking-tight text-slate-900 dark:text-white sm:text-7xl lg:text-8xl">
           From a complex problem to a{" "}
           <span className="bg-gradient-to-r from-blue-600 to-indigo-400 bg-clip-text text-transparent">
             scalable reality
