@@ -20,15 +20,16 @@ body {
   margin: 0;
   /* The main App div will handle the background color */
   overflow-x: hidden; /* Prevent horizontal scrollbar from stars */
+  /* Remove the grey flash iOS/Android show when tapping links and buttons */
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Base for the starry background */
 .stars-container {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  /* inset instead of 100vw/100vh so it also covers the area behind the
+     collapsing address bar on phones */
+  inset: 0;
   background-color: var(--star-bg);
   transition: background-color 0.5s ease;
   z-index: -2; /* Ensure it's behind your content */

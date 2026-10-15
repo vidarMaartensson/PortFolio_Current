@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import avatar from "../../assets/avatar.png";
 
 export const Hero: React.FC = () => {
   const handleScrollToProjects = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -11,7 +12,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative flex flex-col items-center overflow-hidden px-4 pt-18 pb-12 text-center sm:pt-22 sm:pb-16 lg:pt-23 bg-transparent transition-colors duration-500">
+    <section className="relative flex flex-col items-center overflow-hidden px-5 pt-18 pb-6 text-center sm:px-4 sm:pt-22 sm:pb-16 lg:pt-23 bg-transparent transition-colors duration-500">
       {/* Subtilt bakgrundsljus för premiumkänsla */}
       <div className="absolute -z-10 h-full w-full">
         <div className="absolute left-1/2 top-1/4 h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-[100px] dark:bg-blue-900/20"></div>
@@ -23,6 +24,19 @@ export const Hero: React.FC = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="max-w-4xl"
       >
+        {/* Phones only: the avatar sits here instead of next to the navbar */}
+        <a
+          href="mailto:vidar.maartensson@gmail.com"
+          aria-label="Contact me by email"
+          className="mb-5 inline-block sm:hidden"
+        >
+          <img
+            src={avatar}
+            alt="Profile Avatar"
+            className="h-24 w-24 rounded-full border-2 border-slate-200 object-cover shadow-xl dark:border-slate-800"
+          />
+        </a>
+
         <motion.span
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -32,20 +46,20 @@ export const Hero: React.FC = () => {
           Full-stack developer • 3 years of experience
         </motion.span>
 
-        <h1 className="mb-6 text-4xl font-black tracking-tight text-slate-900 dark:text-white sm:text-7xl lg:text-8xl">
+        <h1 className="mb-5 text-[2.5rem] leading-[1.08] font-black tracking-tight text-balance text-slate-900 dark:text-white sm:mb-6 sm:text-7xl sm:leading-none lg:text-8xl">
           From a complex problem to a{" "}
           <span className="bg-gradient-to-r from-blue-600 to-indigo-400 bg-clip-text text-transparent">
             scalable reality
           </span>
         </h1>
 
-        <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-slate-600 dark:text-slate-400 sm:text-xl">
+        <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-pretty text-slate-600 dark:text-slate-400 sm:mb-10 sm:text-xl">
           Fullstack developer with focus on user friendly scalable apps.
           Maintainable projects with intuitive and modern solutions, with a
           sweet tooth for AI.
         </p>
 
-        <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
