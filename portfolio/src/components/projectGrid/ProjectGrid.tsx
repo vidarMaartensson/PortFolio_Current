@@ -49,19 +49,19 @@ export const ProjectGrid: React.FC = () => {
   return (
     <section /* Removed background classes to allow stars to show through */
       id="projects"
-      className="py-20"
+      className="scroll-mt-20 py-12 sm:py-20"
     >
-      <div className="container mx-auto px-4">
-        <div className="mb-12">
+      <div className="container mx-auto px-5 sm:px-4">
+        <div className="mb-8 sm:mb-12">
           <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">
             My Projects
           </h2>
-          <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
+          <p className="mt-3 text-base text-pretty text-slate-600 dark:text-slate-400 sm:mt-4 sm:text-lg">
             These are projects I've worked on recently, or thats in the making!
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}

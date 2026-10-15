@@ -73,9 +73,9 @@ export const Navbar: React.FC = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center p-4 sm:p-6"
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center p-4 pt-[max(1rem,env(safe-area-inset-top))] sm:p-6"
     >
-      <div className="relative flex items-center gap-3 sm:gap-0">
+      <div className="relative flex items-center">
         <nav className="flex items-center gap-1 px-2 py-1.5 sm:gap-2 sm:px-4 sm:py-2 rounded-full border border-slate-200/50 bg-white/80 backdrop-blur-md shadow-lg dark:border-slate-800/50 dark:bg-slate-900/80">
           {navLinks.map((link) => (
             <a
@@ -166,14 +166,13 @@ export const Navbar: React.FC = () => {
           </a>
         </nav>
 
+        {/* On phones the avatar lives in the hero instead, so the bar stays compact */}
         <img
           src={avatar}
           alt="Profile Avatar"
           onClick={handleAvatarClick}
-          className={`shrink-0 sm:absolute sm:left-full sm:ml-4 sm:top-1/2 sm:-translate-y-1/2 rounded-full border-2 border-slate-200 object-cover shadow-xl dark:border-slate-800 transition-all duration-300 hover:scale-110 hover:rotate-3 cursor-pointer ${
-            isScrolled
-              ? "h-10 w-10 sm:h-12 sm:w-12"
-              : "h-10 w-10 sm:h-16 sm:w-16 lg:h-24 lg:w-24"
+          className={`hidden sm:block absolute left-full ml-4 top-1/2 -translate-y-1/2 rounded-full border-2 border-slate-200 object-cover shadow-xl dark:border-slate-800 transition-all duration-300 hover:scale-110 hover:rotate-3 cursor-pointer ${
+            isScrolled ? "h-12 w-12" : "h-16 w-16 lg:h-24 lg:w-24"
           }`}
         />
       </div>

@@ -3,10 +3,16 @@ import type { Project } from "../../types";
 import { motion } from "framer-motion";
 import { DemoModal } from "../demoModal/DemoModal";
 
-const primaryButton =
-  "inline-flex items-center gap-1.5 rounded-md bg-slate-900 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-slate-700 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200";
-const secondaryButton =
-  "inline-flex items-center gap-1.5 rounded-md border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800";
+// On phones the buttons fill the row and are tall enough to tap comfortably;
+// from `sm` up they shrink back to compact desktop chips.
+const buttonBase =
+  "flex-1 min-w-[40%] items-center justify-center gap-1.5 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors sm:flex-none sm:min-w-0 sm:rounded-md sm:px-3 sm:py-1.5 sm:text-xs";
+const secondaryColors =
+  "border border-slate-300 text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800";
+const primaryButton = `inline-flex ${buttonBase} bg-slate-900 text-white hover:bg-slate-700 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200`;
+const secondaryButton = `inline-flex ${buttonBase} ${secondaryColors}`;
+// Only rendered on touch screens, where hovering the image to see the GIF isn't possible
+const touchPreviewButton = `hidden pointer-coarse:inline-flex ${buttonBase} ${secondaryColors}`;
 
 const GitHubIcon = () => (
   <svg viewBox="0 0 16 16" aria-hidden="true" className="h-3.5 w-3.5 fill-current">
@@ -23,6 +29,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isDemoOpen, setIsDemoOpen] = useState(false);
   const hasDemoModal = Boolean(project.demoInModal && project.gifUrl);
+  // Touch screens can't hover to see the GIF, so those cards get a "Preview" button instead
+  const hasTouchPreview = Boolean(project.gifUrl && !project.demoInModal);
 
   const media = (
     <div className="relative aspect-video w-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
@@ -97,7 +105,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         <h3 className="mb-2 text-xl font-bold text-slate-900 dark:text-white">
           {project.title}
         </h3>
-        <p className="mb-4 text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
+        <p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-slate-400 md:line-clamp-2">
           {project.description}
         </p>
 
@@ -135,6 +143,15 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                 Live demo ↗
               </a>
             )}
+            {hasTouchPreview && (
+              <button
+                type="button"
+                onClick={() => setIsDemoOpen(true)}
+                className={touchPreviewButton}
+              >
+                ▶ Preview
+              </button>
+            )}
             {project.githubUrl && (
               <a
                 href={project.githubUrl}
@@ -150,7 +167,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         )}
       </div>
 
-      {hasDemoModal && project.gifUrl && (
+      {project.gifUrl && (
         <DemoModal
           isOpen={isDemoOpen}
           onClose={() => setIsDemoOpen(false)}
