@@ -28,7 +28,7 @@ export const Hero: React.FC = () => {
         <a
           href="mailto:vidar.maartensson@gmail.com"
           aria-label="Contact me by email"
-          className="mb-5 inline-block sm:hidden"
+          className="mx-auto mb-5 block w-fit sm:hidden"
         >
           <img
             src={avatar}
