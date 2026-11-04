@@ -6,6 +6,12 @@ export const Arrow = () => (
   </svg>
 );
 
+export const GitHubIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+  </svg>
+);
+
 export const VMark = ({ size = 34 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 120 120" fill="none" aria-hidden="true">
     <line x1="18" y1="40" x2="50" y2="104" stroke="#F2F4F8" strokeWidth="14" strokeLinecap="round" />
@@ -20,21 +26,24 @@ interface ButtonProps {
   href?: string;
   external?: boolean;
   arrow?: boolean;
+  icon?: ReactNode;
   onClick?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 /** A pill wrapped in a magnet: the wrapper leans toward the cursor, the pill keeps its spring. */
-export function Button({ children, variant = "primary", href, external, arrow, onClick }: ButtonProps) {
+export function Button({ children, variant = "primary", href, external, arrow, icon, onClick }: ButtonProps) {
   const className = variant === "primary" ? "btn" : "btn btn--ghost";
   return (
     <span className="magnet" data-magnet>
       {href ? (
         <a className={className} href={href} onClick={onClick} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+          {icon}
           {children}
           {arrow && <Arrow />}
         </a>
       ) : (
         <button type="button" className={className} onClick={onClick}>
+          {icon}
           {children}
           {arrow && <Arrow />}
         </button>

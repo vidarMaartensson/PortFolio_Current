@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Button } from "../ui/Button";
+import { Button, GitHubIcon } from "../ui/Button";
 import { MOTION_OK, gsap, useGSAP } from "../../lib/motion";
 import { VELOQ_OS_GITHUB } from "../../data/projects";
 import overview from "../../assets/veloqos/overview.jpg";
@@ -119,7 +119,7 @@ export function VeloqOs() {
         <p className="os__copy">A voice assistant in the middle, with mail, calendar, Linear, CI and routines around it. An API on my own machine, a Mac app and an Android app on top of it.</p>
         <div className="os__end">
           <ul className="os__stack">{STACK.map((s) => <li key={s} className="pill">{s}</li>)}</ul>
-          <Button href={VELOQ_OS_GITHUB} external arrow>View on GitHub</Button>
+          <Button href={VELOQ_OS_GITHUB} external icon={<GitHubIcon />}>View on GitHub</Button>
         </div>
       </div>
     </section>

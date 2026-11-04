@@ -1,7 +1,7 @@
 import { useRef } from "react";
-import { Button } from "../ui/Button";
+import { Button, GitHubIcon } from "../ui/Button";
 import { Footer } from "../ui/Chrome";
-import { MOTION_OK, gsap, useGSAP } from "../../lib/motion";
+import { MOBILE, MOTION_OK, gsap, useGSAP } from "../../lib/motion";
 import { EMAIL, GITHUB_PROFILE } from "../../data/projects";
 
 const LINES = [
@@ -15,7 +15,8 @@ export function Contact() {
 
   useGSAP(
     () => {
-      gsap.matchMedia().add(MOTION_OK, () => {
+      const mm = gsap.matchMedia();
+      mm.add(MOTION_OK, () => {
         const chars = gsap.utils.toArray<HTMLElement>(".contact__char");
         const tl = gsap.timeline({
           defaults: { ease: "none" },
@@ -32,6 +33,12 @@ export function Contact() {
           ease: "back.out(1.5)",
           stagger: { amount: 0.3, from: "random" },
         }, 0).from(".contact__rise", { y: 50, autoAlpha: 0, duration: 0.14, stagger: 0.04 }, 0.72);
+
+        // When a phone's address bar hides, the page ends before this pin does. Finish well
+        // ahead of the end there, or the text stays dim and the buttons can't be tapped.
+        mm.add(MOBILE, () => {
+          tl.to({}, { duration: 0.6 });
+        });
       });
     },
     { scope: ref },
@@ -55,7 +62,7 @@ export function Contact() {
         <p className="contact__lede contact__rise">Open to full-stack roles, and to anything that has to feel really good in the hand.</p>
         <div className="contact__cta contact__rise">
           <Button href={`mailto:${EMAIL}`} arrow>Get in touch</Button>
-          <Button variant="ghost" href={GITHUB_PROFILE} external>GitHub</Button>
+          <Button variant="ghost" href={GITHUB_PROFILE} external icon={<GitHubIcon />}>GitHub</Button>
         </div>
       </div>
       <Footer />
