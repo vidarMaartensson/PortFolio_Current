@@ -98,25 +98,26 @@ export const PausableGif: React.FC<PausableGifProps> = ({
   };
 
   return (
-    <div className="relative">
+    <div className="pgif">
       {!isReady && <img src={src} alt={alt} className={className} />}
       <canvas
         ref={canvasRef}
         role="img"
         aria-label={alt}
-        className={`${className ?? ""} ${isReady ? "" : "hidden"}`}
+        className={className}
+        hidden={!isReady}
       />
       {isReady && (
         <button
           type="button"
           onClick={togglePaused}
           aria-label={isPaused ? "Play demo" : "Pause demo"}
-          className={`absolute inset-0 flex cursor-pointer items-center justify-center transition-opacity ${
-            isPaused ? "bg-slate-950/40 opacity-100" : "opacity-0"
-          }`}
+          className={isPaused ? "pgif__toggle is-paused" : "pgif__toggle"}
         >
-          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-2xl text-slate-900 shadow-lg">
-            ▶
+          <span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M8 5v14l11-7z" />
+            </svg>
           </span>
         </button>
       )}
