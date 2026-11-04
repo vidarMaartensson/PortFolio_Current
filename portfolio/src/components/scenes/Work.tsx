@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Button } from "../ui/Button";
+import { Button, GitHubIcon } from "../ui/Button";
 import { Modal } from "../ui/Modal";
 import { PausableGif } from "../demoModal/PausableGif";
 import { DESKTOP, MOBILE, MOTION_OK, ScrollTrigger, gsap, useGSAP } from "../../lib/motion";
@@ -28,7 +28,7 @@ function WorkCard({ project, index, onDemo }: { project: Project; index: number;
           {opensModal && <Button arrow onClick={() => onDemo(project)}>Watch demo</Button>}
           {project.liveUrl && <Button href={project.liveUrl} external arrow>Live demo</Button>}
           {hasTouchPreview && <span className="touch-only"><Button variant="ghost" onClick={() => onDemo(project)}>Preview</Button></span>}
-          {project.githubUrl && <Button variant="ghost" href={project.githubUrl} external>GitHub</Button>}
+          {project.githubUrl && <Button variant="ghost" href={project.githubUrl} external icon={<GitHubIcon />}>GitHub</Button>}
         </div>
       </div>
     </article>
