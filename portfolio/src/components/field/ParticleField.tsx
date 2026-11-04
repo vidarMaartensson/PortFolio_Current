@@ -88,7 +88,9 @@ function layout(k: number, w: number, h: number): Layout {
     case 6: // V mark, closing the page
       return wide
         ? { ...base, x: w * 0.32, y: 0, scale: min * 0.32, alpha: 1, rock: 0.45, size: 1.7 }
-        : { ...base, x: 0, y: h * 0.27, scale: min * 0.3, alpha: 1, rock: 0.45, size: 1.5 };
+        : h < 720
+          ? { ...base, x: w * 0.26, y: h * 0.24, scale: min * 0.3, alpha: 0.25, rock: 0.45, size: 1.5 } // Behind the heading on short phones
+          : { ...base, x: 0, y: h * 0.27, scale: min * 0.3, alpha: 1, rock: 0.45, size: 1.5 };
     default:
       return { ...base, x: 0, y: 0, scale: 100, alpha: 1, size: wide ? 3.3 : 2.1 };
   }
@@ -174,8 +176,12 @@ export function ParticleField({ portraitSelector }: { portraitSelector: string }
     let dpr = 1;
     const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 1.75);
-      width = window.innerWidth;
-      height = window.innerHeight;
+      const nextWidth = window.innerWidth;
+      // On phones the canvas keeps one height whatever the address bar is doing.
+      const nextHeight = nextWidth <= 760 ? canvas.clientHeight : window.innerHeight;
+      if (nextWidth === width && nextHeight === height) return;
+      width = nextWidth;
+      height = nextHeight;
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       gl.viewport(0, 0, canvas.width, canvas.height);
@@ -185,6 +191,8 @@ export function ParticleField({ portraitSelector }: { portraitSelector: string }
 
     const pointer = { x: 0, y: 0, z: 0, tz: 0 };
     const onMove = (e: PointerEvent) => {
+      // A finger leaves no event when it lets go, so its dent would stay in the field.
+      if (e.pointerType === "touch") return;
       pointer.x = e.clientX - width / 2;
       pointer.y = height / 2 - e.clientY;
       pointer.tz = 1;
