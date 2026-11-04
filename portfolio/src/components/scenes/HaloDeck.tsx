@@ -100,7 +100,7 @@ export function HaloDeck() {
           <div className="demo__copy">
             <p className="eyebrow">HaloDeck · Browser demo</p>
             <h3>Give it a good spin.</h3>
-            <p>Drag the wheel and let go. Same friction and snap values as the Android app. Double-tap to open the selected app, or use the arrow keys.</p>
+            <p>Drag the wheel and let go. Same friction and snap values as the Android app. <span className="fine-only">Double-tap to open the selected app, or use the arrow keys.</span><span className="coarse-only">Tap the wheel to open the selected app.</span></p>
           </div>
           <HaloWheel controls />
         </div>

@@ -37,7 +37,8 @@ export function Arcguard() {
         const phones = gsap.utils.toArray<HTMLElement>(".ring__phone");
         const enemies = gsap.utils.toArray<HTMLElement>(".enemy");
         const step = 360 / phones.length;
-        const radius = () => Math.min(window.innerWidth * 0.34, 440);
+        // Wider than the screen on phones: the side cards run off the edges instead of overlapping.
+        const radius = () => (window.innerWidth > 760 ? Math.min(window.innerWidth * 0.34, 440) : window.innerWidth * 0.52);
 
         // GSAP translates before it rotates, so the turn sits on a parent of the push outward.
         slots.forEach((slot, i) => gsap.set(slot, { rotationY: i * step }));

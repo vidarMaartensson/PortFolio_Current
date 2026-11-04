@@ -59,7 +59,7 @@ export const HaloWheel = forwardRef<HaloWheelHandle, Props>(function HaloWheel({
   const iconRefs = useRef<(SVGGElement | null)[]>([]);
   const labelRef = useRef<HTMLSpanElement>(null);
   const toastRef = useRef<HTMLDivElement>(null);
-  const state = useRef({ theta: 0, velocity: 0, dragging: false, lastAngle: 0, lastTime: 0, scroll: 0, selected: -1 });
+  const state = useRef({ theta: 0, velocity: 0, dragging: false, lastAngle: 0, lastTime: 0, scroll: 0, selected: -1, downX: 0, downY: 0, moved: false });
   const [face, setFaceState] = useState<Face>(initial);
   const [time] = useState(() => new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }));
 
@@ -113,6 +113,17 @@ export const HaloWheel = forwardRef<HaloWheelHandle, Props>(function HaloWheel({
     return (Math.atan2(e.clientY - rect.bottom, e.clientX - rect.right) * 180) / Math.PI;
   };
 
+  const open = () => {
+    const s = state.current;
+    if (Math.abs(s.velocity) > 40) return;
+    if (toastRef.current) {
+      toastRef.current.textContent = `Opening ${APPS[s.selected].name}`;
+      gsap.fromTo(toastRef.current, { autoAlpha: 0, y: 14, scale: 0.92 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(2.4)" });
+      gsap.to(toastRef.current, { autoAlpha: 0, y: -10, duration: 0.3, delay: 1.1 });
+    }
+    gsap.fromTo(".wheel-pulse", { attr: { r: 40 }, opacity: 0.7 }, { attr: { r: RADIUS }, opacity: 0, duration: 0.8, ease: "power2.out" });
+  };
+
   const onDown = (e: React.PointerEvent) => {
     const s = state.current;
     e.currentTarget.setPointerCapture(e.pointerId);
@@ -120,10 +131,14 @@ export const HaloWheel = forwardRef<HaloWheelHandle, Props>(function HaloWheel({
     s.velocity = 0;
     s.lastAngle = angleAt(e);
     s.lastTime = performance.now();
+    s.downX = e.clientX;
+    s.downY = e.clientY;
+    s.moved = false;
   };
   const onMove = (e: React.PointerEvent) => {
     const s = state.current;
     if (!s.dragging) return;
+    if (Math.hypot(e.clientX - s.downX, e.clientY - s.downY) > 8) s.moved = true;
     const angle = angleAt(e);
     let delta = angle - s.lastAngle;
     if (delta > 180) delta -= 360;
@@ -135,19 +150,11 @@ export const HaloWheel = forwardRef<HaloWheelHandle, Props>(function HaloWheel({
     s.lastAngle = angle;
     s.lastTime = now;
   };
-  const onUp = () => {
-    state.current.dragging = false;
-  };
-
-  const open = () => {
+  const onUp = (e: React.PointerEvent) => {
     const s = state.current;
-    if (Math.abs(s.velocity) > 40) return;
-    if (toastRef.current) {
-      toastRef.current.textContent = `Opening ${APPS[s.selected].name}`;
-      gsap.fromTo(toastRef.current, { autoAlpha: 0, y: 14, scale: 0.92 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(2.4)" });
-      gsap.to(toastRef.current, { autoAlpha: 0, y: -10, duration: 0.3, delay: 1.1 });
-    }
-    gsap.fromTo(".wheel-pulse", { attr: { r: 40 }, opacity: 0.7 }, { attr: { r: RADIUS }, opacity: 0, duration: 0.8, ease: "power2.out" });
+    s.dragging = false;
+    // Double-tapping isn't reliable on phones, so a plain tap opens the app there.
+    if (e.type === "pointerup" && e.pointerType === "touch" && !s.moved) open();
   };
 
   const onKey = (e: React.KeyboardEvent) => {
